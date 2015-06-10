@@ -10,13 +10,20 @@ var ResultRow = React.createClass({
     render: function() {
         var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
         return (
+            // <div className="row">
+            //     <h1 className="resultItem">
+            //         {this.props.TestRunId}
+            //         {this.props.SuiteName}
+            //     </h1>
+            //     <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+            // </div>
             <tr>
-                <td>{this.props.a}</td>
-                <td>{this.props.b}</td>
-                <td>{this.props.c}</td>
-                <td>{this.props.d}</td>
-                <td>{this.props.e}</td>
-                <td>{this.props.f}</td>
+                <td>{this.props.TestRunId}</td>
+                <td>{this.props.SuiteName}</td>
+                <td>{this.props.CaseName}</td>
+                <td>{this.props.LastUpdateDate}</td>
+                <td>{this.props.LastUpdatedBy}</td>
+                <td>{this.props.Result}</td>
             </tr>
         );
     }
@@ -56,7 +63,7 @@ var ResultList = React.createClass({
     render: function() {
         var resultNode = this.props.data.map(function(result, index) {
             return (
-                <ResultRow a={result.a} b={result.b} b={result.b} c={result.c} d={result.d} e={e.Result} key={index}>
+                <ResultRow TestRunId={result.TestRunId} SuiteName={result.SuiteName} CaseName={result.CaseName} LastUpdateDate={result.LastUpdateDate} LastUpdatedBy={result.LastUpdatedBy} Result={result.Result} key={index}>
                     {result.Result} // dead code?
                 </ResultRow>
             );
@@ -68,12 +75,12 @@ var ResultList = React.createClass({
              <table className="center">
                 <thead>
                     <tr>
-                        <th>a</th>
-                        <th>b</th>
-                        <th>c</th>
-                        <th>d</th>
-                        <th>e</th>
-                        <th>f</th>
+                        <th>TestRunId</th>
+                        <th>SuiteName</th>
+                        <th>CaseName</th>
+                        <th>LastUpdateDate</th>
+                        <th>LastUpdatedBy</th>
+                        <th>Result</th>
                     </tr>
                 </thead>
                 <tbody>{resultNode}</tbody>
@@ -83,6 +90,6 @@ var ResultList = React.createClass({
 });
 
 React.render(
-    <ResultContainer url="/" pollInterval={2000} />,
+    <ResultContainer url="/result" pollInterval={2000} />,
     document.getElementById('mainBox')
 );
